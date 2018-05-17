@@ -4,7 +4,7 @@ import 'react-table/react-table.css'
 
 export default class Timesheet extends React.Component {
     render() {
-        console.log(this.props)
+        console.log(this.props.data)
         const data = [{
             name: 'Tanner Linsley',
             age: 26,

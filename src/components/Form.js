@@ -5,6 +5,7 @@ import DateInput from "./DateInput"
 import DropDownInput from "./DropDownInput"
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import store from '../store/index'
 
 const style = {
     body: {
@@ -17,6 +18,9 @@ const style = {
 
 export default class Form extends React.Component {
     render() {
+        store.subscribe(() => {
+            console.log(store.getState())
+        })
         return (
             <MuiThemeProvider>
                 <div style={style.body}>
