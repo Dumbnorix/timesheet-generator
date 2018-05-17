@@ -17,9 +17,7 @@ import {
 
 export default class TextInput extends React.Component {
     render() {
-        console.log('Render')
         const state = store.getState()
-        console.log(state)
         const defaultValue = this.props.value
         let stateValue;
         switch (this.props.value) {
@@ -38,6 +36,7 @@ export default class TextInput extends React.Component {
         }
         const error = this.props.error
         return <TextField
+            style={{paddingLeft: '30px', alignContent: 'center'}}
             hintText={defaultValue}
             floatingLabelText={defaultValue}
             errorText={error}

@@ -17,8 +17,10 @@ export default class DropDownInput extends React.Component {
         return (
             <div>
                 <SelectField
+                    style={{paddingLeft: '30px'}}
                     floatingLabelText={this.props.label}
                     value={state.placementType}
+                    underlineShow={false}
                     onChange={this.handleChange}
                 >
                     {this.getItems()}

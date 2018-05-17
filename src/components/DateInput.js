@@ -17,6 +17,7 @@ export default class DateInput extends React.Component {
         const defaultDate = FIELD === START_DATE ? defaultStartDate : defaultEndDate
         const minDate = FIELD === END_DATE ? minEndDate.toDate() : null
         return <DatePicker
+            style={{paddingLeft: '30px', paddingTop: '10px', paddingBottom: '10px', width: '100%'}}
             hintText={this.props.value}
             defaultDate={defaultDate}
             minDate={minDate}
