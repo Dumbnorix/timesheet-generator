@@ -19,7 +19,8 @@ import {
     JOB_TITLE,
     START_DATE,
     END_DATE,
-    PLACEMENT_TYPE
+    PLACEMENT_TYPE,
+    PLACEMENT_VALUES
 } from '../constants/field-names'
 
 const formValidator = new FormValidator()
@@ -76,7 +77,7 @@ export default class Form extends React.Component {
                         <TextInput value={JOB_TITLE} error={this.state.jobTitleError}/><Divider/>
                         <DateInput value={START_DATE} onChange={this.onDateChange.bind(this)}/><Divider/>
                         <DateInput value={END_DATE} /><Divider/>
-                        <DropDownInput label={PLACEMENT_TYPE} items={['Weekly', 'Monthly']} /><Divider/>
+                        <DropDownInput label={PLACEMENT_TYPE} items={PLACEMENT_VALUES} /><Divider/>
                         <RaisedButton label="Generate Timesheets" style={style.button} onClick={this.onSubmit} />
                     </Paper>
                 </div>

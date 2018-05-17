@@ -4,3 +4,5 @@ export const JOB_TITLE = 'Job Title'
 export const START_DATE = 'Start Date'
 export const END_DATE = 'End Date'
 export const PLACEMENT_TYPE = 'Placement Type'
+
+export const PLACEMENT_VALUES = ['Weekly, Monthly']
