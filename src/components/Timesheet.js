@@ -21,6 +21,7 @@ let state;
 export default class Timesheet extends React.Component {
     componentWillMount() {
         state = store.getState()
+        if (!state.candidateName || !state.clientName || !state.jobTitle) this.props.history.push('/')
         const timesheets = []
         let intervalsBetweenDates
         if (state.placementType === 1) {

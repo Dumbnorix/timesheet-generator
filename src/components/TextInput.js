@@ -31,13 +31,13 @@ export default class TextInput extends React.Component {
                 if (state.jobTitle) stateValue = state.jobTitle
                 break;
             default:
-                stateValue = ''
+                stateValue = this.props.value
                 break;
         }
         const error = this.props.error
         return <TextField
             style={{paddingLeft: '30px', alignContent: 'center'}}
-            hintText={defaultValue}
+            defaultValue={stateValue}
             floatingLabelText={defaultValue}
             errorText={error}
             underlineShow={false}

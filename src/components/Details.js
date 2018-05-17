@@ -1,13 +1,20 @@
 import React from 'react'
 import Paper from 'material-ui/Paper'
 import {List, ListItem} from 'material-ui/List'
+import {
+    CANDIDATE_NAME,
+    CLIENT_NAME,
+    JOB_TITLE
+} from '../constants/field-names'
 
 const style = {
     list: {
-        padding: '32px 32px 0px 32px',
+        padding: '10px 10px 10px 10px',
     },
     listItem: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        margin: 10,
+        padding: 0
     }
 }
 
@@ -16,9 +23,9 @@ export default class Details extends React.Component {
         const details =
             <Paper>
                 <List style={style.list}>
-                    <span>Candidate Name:</span><ListItem style={style.listItem} disabled={true} primaryText={this.props.candidateName} />
-                    <span>Client Name:</span><ListItem style={style.listItem} disabled={true} primaryText={this.props.clientName} />
-                    <span>Job Title:</span><ListItem style={style.listItem} disabled={true} primaryText={this.props.jobTitle} />
+                    <ListItem style={style.listItem} disabled={true} primaryText={CANDIDATE_NAME} secondaryText={this.props.candidateName} />
+                    <ListItem style={style.listItem} disabled={true} primaryText={CLIENT_NAME} secondaryText={this.props.clientName} />
+                    <ListItem style={style.listItem} disabled={true} primaryText={JOB_TITLE} secondaryText={this.props.jobTitle} />
                 </List>
             </Paper>
         return details
