@@ -40,7 +40,7 @@ export default class Table extends React.Component {
                         <th style={style.hoursColumn}><b>Work Hours</b></th>
                         <th style={style.hoursColumn}><b>Lunch Hours</b></th>
                     </tr>
-                    {this.props.week.days.map((day, i) => {
+                    {this.props.interval.days.map((day, i) => {
                         return (
                             <tr key={i}>
                                 <td key={i} style={style.dateColumn}>{moment(day).format('LLLL')}</td>

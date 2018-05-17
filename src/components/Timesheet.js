@@ -11,68 +11,53 @@ import Paper from 'material-ui/Paper'
 import Divider from 'material-ui/Divider'
 
 import '../css/timesheet.css'
+import {addTimesheets} from "../actions/index"
 
 const timeSheetService = new TimesheetService()
 
 let state;
 
 export default class Timesheet extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            timesheets: []
-        }
-    }
     componentWillMount() {
         state = store.getState()
-        console.log(store.startDate)
-        const input = {
-            candidateName: state.candidateName,
-            clientName: state.clientName,
-            jobTitle: state.jobTitle,
-            startDate: state.startDate,
-            endDate: state.endDate,
-            placementType: state.placementType
-        }
         const timesheets = []
         let intervalsBetweenDates
-        if (input.placementType === 1) {
-            intervalsBetweenDates = timeSheetService.getWeeksBetweenDates(input.startDate, input.endDate)
-        } else if (input.placementType === 2) {
-            intervalsBetweenDates = timeSheetService.getMonthsBetweenDates(input.startDate, input.endDate)
+        if (state.placementType === 1) {
+            intervalsBetweenDates = timeSheetService.getWeeksBetweenDates(state.startDate, state.endDate)
+        } else if (state.placementType === 2) {
+            intervalsBetweenDates = timeSheetService.getMonthsBetweenDates(state.startDate, state.endDate)
         } else {
-            console.error(`Error: unknown Placement Type: ${input.placementType}`)
+            console.error(`Error: unknown Placement Type: ${state.placementType}`)
         }
-        intervalsBetweenDates.forEach(week => {
-            const table = {
-                'intervalStart': week.startDate,
-                'intervalEnd': week.endDate,
-                'days': timeSheetService.getDaysBetweenDates(week.startDate, week.endDate)
+        intervalsBetweenDates.forEach(interval => {
+            const timesheet = {
+                'intervalStart': interval.startDate,
+                'intervalEnd': interval.endDate,
+                'days': timeSheetService.getDaysBetweenDates(interval.startDate, interval.endDate)
             }
-            timesheets.push(table)
+            timesheets.push(timesheet)
         })
-        this.setState({
-            input: input,
-            timesheets: timesheets
-        })
+        store.dispatch(addTimesheets(timesheets))
+        this.forceUpdate()
     }
     render() {
+        state = store.getState()
         return (
             <div>
-                {this.state.timesheets.map((table, i) => {
-                    const timesheet =
+                {state.timesheets.map((timesheet, i) => {
+                    return (
                         <div className="timesheet" key={i}>
                             <Paper style={{width: '900px', margin: '30px'}}>
                                 <Details
-                                    candidateName={this.state.input.candidateName}
-                                    clientName={this.state.input.clientName}
-                                    jobTitle={this.state.input.jobTitle}
+                                    candidateName={state.candidateName}
+                                    clientName={state.clientName}
+                                    jobTitle={state.jobTitle}
                                 />
-                                <Table week={table}/>
+                                <Table interval={timesheet}/>
                             </Paper>
                             <Divider/>
                         </div>
-                   return timesheet
+                    )
                 })}
             </div>
         )
