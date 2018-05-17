@@ -1,0 +1,3 @@
+@media print {
+    div.timesheet {page-break-after: always;}
+}

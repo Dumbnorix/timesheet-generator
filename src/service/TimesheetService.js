@@ -2,6 +2,25 @@ import moment from 'moment'
 
 export default class TimesheetService {
 
+    getDaysBetweenDates = (startDate, endDate) => {
+        const start = moment(startDate)
+        const end = moment(endDate)
+        const days = []
+        days.push(start.toISOString())
+        const current = moment(start).add(1, 'days')
+        while (current<=end) {
+            if(current.unix() === end.unix()) {
+                days.push(current.toISOString())
+                break;
+            } else {
+                days.push(current.toISOString())
+                current.add(1, 'days')
+                continue;
+            }
+        }
+        return days
+    }
+
     getWeeksBetweenDates = (startDate, endDate) => {
         const start = moment(startDate) // cast the given dates as a moment date to perform moment functions on them
         const end = moment(endDate)
@@ -20,7 +39,7 @@ export default class TimesheetService {
                 weeks.push(week)
                 break;
             }
-            else if (current.isoWeekday() == 1) { // if the current day is a monday
+            else if (current.isoWeekday() === 1) { // if the current day is a monday
                 if (week['startDate']) { // and their is already a start date
                     week['endDate'] = current
                     current.add(1, 'days')
@@ -34,7 +53,7 @@ export default class TimesheetService {
 
                 continue
             }
-            else if (current.isoWeekday() == 7) {
+            else if (current.isoWeekday() === 7) {
                 week['endDate'] = current.toISOString()
                 weeks.push(week)
                 week = {}
@@ -90,6 +109,19 @@ export default class TimesheetService {
         const months = this.getMonthsBetweenDates(startDate, endDate)
         return months
 
+    }
+
+    async parseDataForTimesheet(data) {
+        console.log(data.reportType)
+        const rows = data.reportType === 1 ?
+                await this.getWeeks(data.startDate, data.endDate) :
+                await this.getMonths(data.startDate, data.endDate)
+        console.log(rows)
+        const array = []
+        rows.forEach(row => {
+            array.push(row)
+        })
+        return array
     }
 
 }

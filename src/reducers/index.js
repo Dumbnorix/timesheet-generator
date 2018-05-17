@@ -6,13 +6,19 @@ import {
     CHANGE_START_DATE,
     CHANGE_REPORT_TYPE
 } from "../constants/action-types"
+import moment from 'moment'
+
+const defaultStartDate = moment()
+const defaultEndDate = moment(defaultStartDate).add(1, 'months')
+const defaultReportType = 1
 
 const initialState = {
     candidateName: undefined,
     clientName: undefined,
     jobTitle: undefined,
-    startDate: undefined,
-    endDate: undefined
+    startDate: defaultStartDate,
+    endDate: defaultEndDate,
+    reportType: defaultReportType
 }
 
 const rootReducer = (state = initialState, action) => {

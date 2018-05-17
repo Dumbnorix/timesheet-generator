@@ -5,17 +5,15 @@ const timesheetService = new TimesheetService()
 
 describe('TimesheetService.js', () => {
 
-    describe('getWeeksBetweenDates()', () => {
-        it('should return the dates object for each week given a valid start and end date', async () => {
-            const startDate = new Date()
-            const endDate = new Date(startDate)
-            endDate.setDate(startDate.getDate()+14)
-            const weeks = await timesheetService.getWeeks(startDate, endDate)
-            expect(weeks.length).toEqual(3)
-            expect(Math.abs(moment(weeks[0]['startDate']).diff(moment(weeks[0]['endDate']), 'days'))).toEqual(4)
-            expect(Math.abs(moment(weeks[1]['startDate']).diff(moment(weeks[1]['endDate']), 'days'))).toEqual(6)
-            expect(Math.abs(moment(weeks[2]['startDate']).diff(moment(weeks[2]['endDate']), 'days'))).toEqual(2)
+    describe('getDaysBetweenDates()', () => {
+        it('should return number of days between 2 dates', () => {
+            const startDate = moment()
+            const endDate = moment().add(14, 'days')
+            const days = timesheetService.getDaysBetweenDates(startDate, endDate)
+            expect(days.length).toEqual(14)
         })
+    })
+    describe('getWeeksBetweenDates()', () => {
         it('should return weeks between 2 dates where the first date is a monday', () => {
             const startDate = moment("2017-01-02T00:00:00") // provided in specs
             const endDate = moment("2017-02-05T00:00:00")

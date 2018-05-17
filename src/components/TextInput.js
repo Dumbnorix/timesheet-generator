@@ -9,12 +9,15 @@ const JOB_TITLE = 'Job Title'
 
 export default class TextInput extends React.Component {
     render() {
-        const FIELD = this.props.value
+        const field = this.props.value
+        const error = this.props.error
         return <TextField
-            hintText={FIELD}
-            floatingLabelText={FIELD}
+            hintText={field}
+            floatingLabelText={field}
+            errorText={error}
+            underlineShow={false}
             onChange={(e, value) => {
-                switch(FIELD) {
+                switch(field) {
                     case CANDIDATE_NAME:
                         store.dispatch(changeCandidateName(value))
                         break;
@@ -25,7 +28,7 @@ export default class TextInput extends React.Component {
                         store.dispatch(changeJobTitle(value))
                         break;
                     default:
-                        console.log(`Error: unknown text field = ${FIELD}`)
+                        console.log(`Error: unknown text field = ${field}`)
                 }
             }}
         />

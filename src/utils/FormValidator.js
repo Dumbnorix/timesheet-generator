@@ -1,21 +1,18 @@
 export default class FormValidator {
+
     validateName(name) {
-        if (!name) return {error: 'Name is required.'};
-        return {}
+        if (!name) return 'Name is required.'
+        return null
     }
+
     validateTitle(title) {
-        if (!title) return {error: 'Title is required.'};
-        return {}
+        if (!title) return 'Job Title is required.'
+        return null
     }
+
     isEndDateAfterStartDate(startDate, endDate) {
-        if (startDate > endDate) return {error: 'End date needs to be after start date.'};
+        if (startDate > endDate) return 'End date needs to be after start date.'
+        return null
     }
-    isFormComplete(form) {
-        if (form.candidateName &&
-            form.clientName &&
-            form.jobTitle &&
-            form.startDate &&
-            form.endDate) return true;
-        else return false;
-    }
+
 }
