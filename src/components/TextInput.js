@@ -1,23 +1,31 @@
-import React from 'react';
-import TextField from 'material-ui/TextField';
-import store from '../store/index'
-import {changeCandidateName, changeClientName, changeJobTitle} from "../actions/index"
+import React from 'react'
 
-const CANDIDATE_NAME = 'Candidate Name'
-const CLIENT_NAME = 'Client Name'
-const JOB_TITLE = 'Job Title'
+import TextField from 'material-ui/TextField'
+
+import store from '../store/index'
+import {
+    changeCandidateName,
+    changeClientName,
+    changeJobTitle
+} from '../actions/index'
+
+import {
+    CANDIDATE_NAME,
+    CLIENT_NAME,
+    JOB_TITLE
+} from '../constants/field-names'
 
 export default class TextInput extends React.Component {
     render() {
-        const field = this.props.value
+        const value = this.props.value
         const error = this.props.error
         return <TextField
-            hintText={field}
-            floatingLabelText={field}
+            hintText={value}
+            floatingLabelText={value}
             errorText={error}
             underlineShow={false}
             onChange={(e, value) => {
-                switch(field) {
+                switch(value) {
                     case CANDIDATE_NAME:
                         store.dispatch(changeCandidateName(value))
                         break;
@@ -28,7 +36,7 @@ export default class TextInput extends React.Component {
                         store.dispatch(changeJobTitle(value))
                         break;
                     default:
-                        console.log(`Error: unknown text field = ${field}`)
+                        console.log(`Error: unknown text field = ${value}`)
                 }
             }}
         />
