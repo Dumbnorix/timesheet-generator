@@ -1,4 +1,11 @@
-import {CHANGE_CANDIDATE_NAME, CHANGE_CLIENT_NAME, CHANGE_ENDDATE, CHANGE_JOB_TITLE, CHANGE_STARTDATE} from "../constants/action-types"
+import {
+    CHANGE_CANDIDATE_NAME,
+    CHANGE_CLIENT_NAME,
+    CHANGE_END_DATE,
+    CHANGE_JOB_TITLE,
+    CHANGE_START_DATE,
+    CHANGE_REPORT_TYPE
+} from "../constants/action-types"
 
 const initialState = {
     candidateName: undefined,
@@ -16,10 +23,12 @@ const rootReducer = (state = initialState, action) => {
             return { ...state, clientName: action.payload }
         case CHANGE_JOB_TITLE:
             return { ...state, jobTitle: action.payload }
-        case CHANGE_STARTDATE:
+        case CHANGE_START_DATE:
             return { ...state, startDate: action.payload }
-        case CHANGE_ENDDATE:
+        case CHANGE_END_DATE:
             return { ...state, endDate: action.payload }
+        case CHANGE_REPORT_TYPE:
+            return { ...state, reportType: action.payload }
         default:
             return state;
     }
