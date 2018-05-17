@@ -17,15 +17,15 @@ import {
 
 export default class TextInput extends React.Component {
     render() {
-        const value = this.props.value
+        const defaultValue = this.props.value
         const error = this.props.error
         return <TextField
-            hintText={value}
-            floatingLabelText={value}
+            hintText={defaultValue}
+            floatingLabelText={defaultValue}
             errorText={error}
             underlineShow={false}
             onChange={(e, value) => {
-                switch(value) {
+                switch(defaultValue) {
                     case CANDIDATE_NAME:
                         store.dispatch(changeCandidateName(value))
                         break;

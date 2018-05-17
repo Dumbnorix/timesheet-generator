@@ -14,6 +14,8 @@ import '../css/timesheet.css'
 
 const timeSheetService = new TimesheetService()
 
+let state;
+
 export default class Timesheet extends React.Component {
     constructor(props) {
         super(props)
@@ -22,21 +24,24 @@ export default class Timesheet extends React.Component {
         }
     }
     componentWillMount() {
-        const state = store.getState()
+        state = store.getState()
+        console.log(store.startDate)
         const input = {
             candidateName: state.candidateName,
             clientName: state.clientName,
             jobTitle: state.jobTitle,
             startDate: state.startDate,
             endDate: state.endDate,
-            reportType: state.reportType
+            placementType: state.placementType
         }
         const timesheets = []
         let intervalsBetweenDates
-        if (input.reportType === 1) {
+        if (input.placementType === 1) {
             intervalsBetweenDates = timeSheetService.getWeeksBetweenDates(input.startDate, input.endDate)
-        } else {
+        } else if (input.placementType === 2) {
             intervalsBetweenDates = timeSheetService.getMonthsBetweenDates(input.startDate, input.endDate)
+        } else {
+            console.error(`Error: unknown Placement Type: ${input.placementType}`)
         }
         intervalsBetweenDates.forEach(week => {
             const table = {

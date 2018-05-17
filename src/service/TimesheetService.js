@@ -112,8 +112,8 @@ export default class TimesheetService {
     }
 
     async parseDataForTimesheet(data) {
-        console.log(data.reportType)
-        const rows = data.reportType === 1 ?
+        console.log(data.placementType)
+        const rows = data.placementType === 1 ?
                 await this.getWeeks(data.startDate, data.endDate) :
                 await this.getMonths(data.startDate, data.endDate)
         console.log(rows)

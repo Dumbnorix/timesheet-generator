@@ -4,13 +4,13 @@ import {
     CHANGE_END_DATE,
     CHANGE_JOB_TITLE,
     CHANGE_START_DATE,
-    CHANGE_REPORT_TYPE
+    CHANE_PLACEMENT_TYPE
 } from "../constants/action-types"
 import moment from 'moment'
 
 const defaultStartDate = moment()
 const defaultEndDate = moment(defaultStartDate).add(1, 'months')
-const defaultReportType = 1
+const defaultPlacementType = 1
 
 const initialState = {
     candidateName: undefined,
@@ -18,7 +18,7 @@ const initialState = {
     jobTitle: undefined,
     startDate: defaultStartDate,
     endDate: defaultEndDate,
-    reportType: defaultReportType
+    placementType: defaultPlacementType
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -33,8 +33,8 @@ const rootReducer = (state = initialState, action) => {
             return { ...state, startDate: action.payload }
         case CHANGE_END_DATE:
             return { ...state, endDate: action.payload }
-        case CHANGE_REPORT_TYPE:
-            return { ...state, reportType: action.payload }
+        case CHANE_PLACEMENT_TYPE:
+            return { ...state, placementType: action.payload }
         default:
             return state;
     }

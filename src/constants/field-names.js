@@ -5,4 +5,4 @@ export const START_DATE = 'Start Date'
 export const END_DATE = 'End Date'
 export const PLACEMENT_TYPE = 'Placement Type'
 
-export const PLACEMENT_VALUES = ['Weekly, Monthly']
+export const PLACEMENT_VALUES = ['Weekly', 'Monthly']

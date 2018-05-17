@@ -1,6 +1,6 @@
 import {
     CHANGE_CANDIDATE_NAME,
-    CHANGE_REPORT_TYPE,
+    CHANE_PLACEMENT_TYPE,
     CHANGE_JOB_TITLE,
     CHANGE_CLIENT_NAME,
     CHANGE_END_DATE,
@@ -12,4 +12,4 @@ export const changeClientName = name => ({ type: CHANGE_CLIENT_NAME, payload: na
 export const changeJobTitle = title => ({ type: CHANGE_JOB_TITLE, payload: title })
 export const changeStartDate = startDate => ({ type: CHANGE_START_DATE, payload: startDate })
 export const changeEndDate = endDate => ({ type: CHANGE_END_DATE, payload: endDate })
-export const changeReportType = type => ({ type: CHANGE_REPORT_TYPE, payload: type })
+export const changePlacementType = type => ({ type: CHANE_PLACEMENT_TYPE, payload: type })
