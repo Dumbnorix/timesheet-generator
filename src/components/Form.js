@@ -1,5 +1,4 @@
 import React from 'react'
-import { Redirect } from "react-router-dom"
 
 import FormValidator from "../utils/FormValidator"
 
@@ -50,9 +49,7 @@ export default class Form extends React.Component {
             jobTitleError: formValidator.validateTitle(state.jobTitle)
         }, () => {
             if (!this.state.candidateNameError && !this.state.clientNameError && !this.state.jobTitleError) {
-                this.setState({
-                    validated: true
-                })
+                this.props.history.push('/timesheet')
             }
         })
     }
@@ -66,22 +63,18 @@ export default class Form extends React.Component {
         }
     }
     render() {
-        if (this.state.validated) {
-            return <Redirect to='/timesheet' />
-        } else {
-            return (
-                <div style={style.body}>
-                    <Paper zDepth={2}>
-                        <TextInput value={CANDIDATE_NAME} error={this.state.candidateNameError}/><Divider/>
-                        <TextInput value={CLIENT_NAME} error={this.state.clientNameError}/><Divider/>
-                        <TextInput value={JOB_TITLE} error={this.state.jobTitleError}/><Divider/>
-                        <DateInput value={START_DATE} onChange={this.onDateChange.bind(this)}/><Divider/>
-                        <DateInput value={END_DATE} /><Divider/>
-                        <DropDownInput label={PLACEMENT_TYPE} items={PLACEMENT_VALUES} /><Divider/>
-                        <RaisedButton label="Generate Timesheets" style={style.button} onClick={this.onSubmit} />
-                    </Paper>
-                </div>
-            )
-        }
+        return (
+            <div style={style.body}>
+                <Paper zDepth={2}>
+                    <TextInput value={CANDIDATE_NAME} error={this.state.candidateNameError}/><Divider/>
+                    <TextInput value={CLIENT_NAME} error={this.state.clientNameError}/><Divider/>
+                    <TextInput value={JOB_TITLE} error={this.state.jobTitleError}/><Divider/>
+                    <DateInput value={START_DATE} onChange={this.onDateChange.bind(this)}/><Divider/>
+                    <DateInput value={END_DATE} /><Divider/>
+                    <DropDownInput label={PLACEMENT_TYPE} items={PLACEMENT_VALUES} /><Divider/>
+                    <RaisedButton label="Generate Timesheets" style={style.button} onClick={this.onSubmit} />
+                </Paper>
+            </div>
+        )
     }
 }

@@ -1,17 +1,18 @@
 import React from 'react'
+import { browserHistory } from 'react-router-dom';
 
 import store from '../store/index'
 
 import TimesheetService from '../service/TimesheetService'
 
 import Table from './Table'
-import Details from "./Details"
+import Details from './Details'
 
 import Paper from 'material-ui/Paper'
 import Divider from 'material-ui/Divider'
 
 import '../css/timesheet.css'
-import {addTimesheets} from "../actions/index"
+import {addTimesheets} from '../actions/index'
 
 const timeSheetService = new TimesheetService()
 
@@ -46,7 +47,7 @@ export default class Timesheet extends React.Component {
             <div>
                 {state.timesheets.map((timesheet, i) => {
                     return (
-                        <div className="timesheet" key={i}>
+                        <div className='timesheet' key={i}>
                             <Paper style={{width: '900px', margin: '30px'}}>
                                 <Details
                                     candidateName={state.candidateName}

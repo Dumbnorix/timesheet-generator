@@ -17,7 +17,25 @@ import {
 
 export default class TextInput extends React.Component {
     render() {
+        console.log('Render')
+        const state = store.getState()
+        console.log(state)
         const defaultValue = this.props.value
+        let stateValue;
+        switch (this.props.value) {
+            case CANDIDATE_NAME:
+                if (state.candidateName) stateValue = state.candidateName
+                break;
+            case CLIENT_NAME:
+                if (state.clientName) stateValue = state.clientName
+                break;
+            case JOB_TITLE:
+                if (state.jobTitle) stateValue = state.jobTitle
+                break;
+            default:
+                stateValue = ''
+                break;
+        }
         const error = this.props.error
         return <TextField
             hintText={defaultValue}
