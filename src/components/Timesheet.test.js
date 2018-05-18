@@ -1,7 +1,6 @@
 import React from 'react'
 import Enzyme, {shallow} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import sinon from 'sinon'
 import Timesheet from './Timesheet'
 import store from '../store/index'
 import {
@@ -9,8 +8,7 @@ import {
     changeClientName,
     changeJobTitle,
     changeStartDate,
-    changeEndDate,
-    addTimesheets
+    changeEndDate
 } from '../actions/index'
 import moment from 'moment'
 
