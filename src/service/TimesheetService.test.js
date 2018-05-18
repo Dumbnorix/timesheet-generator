@@ -58,20 +58,26 @@ describe('TimesheetService.js', () => {
             const weeks = timesheetService.getWeeksBetweenDates(startDate, endDate)
             expect(weeks.length).toEqual(3)
         })
+        it('should accept very large contracts', () => {
+            const startDate = moment('2018-05-20T00:00:00')
+            const endDate = moment('2019-05-20T00:00:00')
+            const weeks = timesheetService.getWeeksBetweenDates(startDate, endDate)
+            expect(weeks.length).toEqual(54)
+        })
     })
-    
+
     describe('getMonthsBetweenDates()', () => {
         // use case provided in specification
         it('should return the dates object for each month given a valid start and end date', () => {
-            const startDate = moment('2017-01-04T00:00:00') // provided in specs
-            const endDate = moment('2017-05-12T00:00:00')
+            const startDate = moment('2017-01-04T10:00:00') // provided in specs
+            const endDate = moment('2017-05-12T10:00:00')
             const months = timesheetService.getMonthsBetweenDates(startDate, endDate)
             expect(months.length).toEqual(5)
         })
         // use case captured: start date is the end of a month
         it('should return the dates object for each month given a valid start and end date', () => {
-            const startDate = moment('2017-01-30T00:00:00')
-            const endDate = moment('2017-05-12T00:00:00')
+            const startDate = moment('2017-01-30T10:00:00')
+            const endDate = moment('2017-05-12T10:00:00')
             const months = timesheetService.getMonthsBetweenDates(startDate, endDate)
             expect(months.length).toEqual(5)
         })

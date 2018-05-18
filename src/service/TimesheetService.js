@@ -70,32 +70,32 @@ export default class TimesheetService {
     }
 
     getMonthsBetweenDates = (startDate, endDate) => {
-        const start = moment(startDate).endOf('day')
-        const end = moment(endDate).endOf('day')
+        const start = moment(startDate)
+        const end = moment(endDate)
         const months = []
         let month = {}
-        month.startDate = start.toISOString()
+        month.startDate = start.local().toDate()
         const lastDayOfMonth = moment(startDate).endOf('month')
-        if (start.unix() === lastDayOfMonth.unix()) {
-            month.endDate = lastDayOfMonth.toISOString()
+        if (start.endOf('day').unix() === lastDayOfMonth.endOf('day').unix()) {
+            month.endDate = lastDayOfMonth.local().toDate()
             months.push(month)
             month = {}
         }
-        const currentDay = moment(startDate).add(1, 'days').endOf('day')
-        while(currentDay <= end) {
-            if (currentDay.unix() === end.unix()) {
-                month.endDate = currentDay.toISOString()
+        const currentDay = moment(startDate).add(1, 'days').local()
+        while(currentDay.endOf('day').unix() <= end.endOf('day').unix()) {
+            if (currentDay.endOf('day').unix() === end.endOf('day').unix()) {
+                month.endDate = currentDay.local().toDate()
                 months.push(month)
                 break;
-            } else if (currentDay.unix() === lastDayOfMonth.unix()) {
-                month.endDate = currentDay.toISOString()
+            } else if (currentDay.endOf('day').unix() === lastDayOfMonth.endOf('day').unix()) {
+                month.endDate = currentDay.local().toDate()
                 months.push(month)
                 month = {}
-                currentDay.add(1, 'days').endOf('day')
+                currentDay.add(1, 'days')
                 lastDayOfMonth.add(1, 'days').endOf('month')
-                month.startDate = currentDay.toISOString()
+                month.startDate = currentDay.local().toDate()
             } else {
-                currentDay.add(1, 'days').endOf('day')
+                currentDay.add(1, 'days')
             }
         }
         return months

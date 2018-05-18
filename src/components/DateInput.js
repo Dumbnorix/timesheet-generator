@@ -24,6 +24,7 @@ export default class DateInput extends React.Component {
             hintText={field}
             minDate={minDate}
             maxDate={maxDate}
+            floatingLabelText={field}
             underlineShow={false}
             value={value}
             onChange={(e, value) => this.props.onChange(value, field)}
