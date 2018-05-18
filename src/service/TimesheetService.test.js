@@ -8,7 +8,7 @@ describe('TimesheetService.js', () => {
     describe('getDaysBetweenDates()', () => {
         it('should return number of days between 2 dates', () => {
             const startDate = moment()
-            const endDate = moment().add(14, 'days')
+            const endDate = moment().add(13, 'days')
             const days = timesheetService.getDaysBetweenDates(startDate, endDate)
             expect(days.length).toEqual(14)
         })

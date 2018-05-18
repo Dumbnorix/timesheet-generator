@@ -1,5 +1,4 @@
 import React from 'react'
-import { browserHistory } from 'react-router-dom';
 
 import store from '../store/index'
 
@@ -26,6 +25,7 @@ export default class Timesheet extends React.Component {
         let intervalsBetweenDates
         if (state.placementType === 1) {
             intervalsBetweenDates = timeSheetService.getWeeksBetweenDates(state.startDate, state.endDate)
+            console.log(intervalsBetweenDates)
         } else if (state.placementType === 2) {
             intervalsBetweenDates = timeSheetService.getMonthsBetweenDates(state.startDate, state.endDate)
         } else {

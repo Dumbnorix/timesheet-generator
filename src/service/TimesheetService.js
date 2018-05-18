@@ -3,8 +3,8 @@ import moment from 'moment'
 export default class TimesheetService {
 
     getDaysBetweenDates = (startDate, endDate) => {
-        const start = moment(startDate)
-        const end = moment(endDate)
+        const start = moment(startDate).endOf('day')
+        const end = moment(endDate).endOf('day')
         const days = []
         days.push(start.toISOString())
         const current = moment(start).add(1, 'days')
@@ -22,25 +22,25 @@ export default class TimesheetService {
     }
 
     getWeeksBetweenDates = (startDate, endDate) => {
-        const start = moment(startDate) // cast the given dates as a moment date to perform moment functions on them
+        const start = moment(startDate)
         const end = moment(endDate)
         const weeks = []
         let week = {}
-        week['startDate'] = start.toISOString() // the given date is always the start date for the first week
+        week['startDate'] = start.toISOString()
         if (start.isoWeekday() === 7) {
             week['endDate'] = start.toISOString()
             weeks.push(week)
             week = {}
         }
-        const current = moment(startDate).add(1, 'days') // track the current date (+1 because start date is already processed)
+        const current = moment(startDate).add(1, 'days')
         while(current<=end) {
-            if (current.unix() === end.unix()) { // if the current day matches the end day we are finished
+            if (current.unix() === end.unix()) {
                 week['endDate'] = current.toISOString()
                 weeks.push(week)
                 break;
             }
-            else if (current.isoWeekday() === 1) { // if the current day is a monday
-                if (week['startDate']) { // and their is already a start date
+            else if (current.isoWeekday() === 1) {
+                if (week['startDate']) {
                     week['endDate'] = current
                     current.add(1, 'days')
                     weeks.push(week)
