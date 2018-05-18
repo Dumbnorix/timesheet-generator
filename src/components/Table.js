@@ -43,7 +43,7 @@ export default class Table extends React.Component {
                     {this.props.interval.days.map((day, i) => {
                         return (
                             <tr key={i}>
-                                <td key={i} style={style.dateColumn}>{moment(day).format('LLLL')}</td>
+                                <td key={i} style={style.dateColumn}>{moment(day).format('dddd MMM Do YYYY')}</td>
                                 <td style={style.hoursColumn}></td>
                                 <td style={style.hoursColumn}></td>
                             </tr>
