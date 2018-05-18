@@ -9,6 +9,7 @@ import DropDownInput from "./DropDownInput"
 import RaisedButton from 'material-ui/RaisedButton'
 import Divider from 'material-ui/Divider'
 import Paper from 'material-ui/Paper'
+import Grid from '@material-ui/core/Grid'
 
 import store from '../store/index'
 import {
@@ -80,17 +81,19 @@ export default class Form extends React.Component {
     render() {
         const state = store.getState()
         return (
-            <div style={{padding: '50px', margin: '0 auto'}}>
-                <Paper style={{width: '600px'}} zDepth={2}>
-                    <TextInput value={CANDIDATE_NAME} error={this.state.candidateNameError}/><Divider/>
-                    <TextInput value={CLIENT_NAME} error={this.state.clientNameError}/><Divider/>
-                    <TextInput value={JOB_TITLE} error={this.state.jobTitleError}/><Divider/>
-                    <DateInput hint={START_DATE} value={state.startDate} onChange={this.onDateChange} /><Divider/>
-                    <DateInput hint={END_DATE} value={state.endDate} onChange={this.onDateChange} /><Divider/>
-                    <DropDownInput label={PLACEMENT_TYPE} items={PLACEMENT_VALUES} />
-                </Paper>
-                <RaisedButton label="Generate Timesheets" style={style.button} onClick={this.onSubmit} primary={true}/>
-            </div>
+            <Grid container spacing={24}>
+                <Grid item xs={12} sm={6} md={5} style={{margin: 'auto', padding:40}}>
+                    <Paper zDepth={2}>
+                        <TextInput value={CANDIDATE_NAME} error={this.state.candidateNameError}/><Divider/>
+                        <TextInput value={CLIENT_NAME} error={this.state.clientNameError}/><Divider/>
+                        <TextInput value={JOB_TITLE} error={this.state.jobTitleError}/><Divider/>
+                        <DateInput hint={START_DATE} value={state.startDate} onChange={this.onDateChange} /><Divider/>
+                        <DateInput hint={END_DATE} value={state.endDate} onChange={this.onDateChange} /><Divider/>
+                        <DropDownInput label={PLACEMENT_TYPE} items={PLACEMENT_VALUES} />
+                    </Paper>
+                    <RaisedButton label="Generate Timesheets" style={style.button} onClick={this.onSubmit} primary={true}/>
+                </Grid>
+            </Grid>
         )
     }
 }
