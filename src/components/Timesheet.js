@@ -18,26 +18,30 @@ const timeSheetService = new TimesheetService()
 let state;
 
 export default class Timesheet extends React.Component {
-    componentWillMount() {
-        state = store.getState()
-        if (!state.candidateName || !state.clientName || !state.jobTitle) this.props.history.push('/')
-        const timesheets = []
-        let intervalsBetweenDates
-        if (state.placementType === 1) {
-            intervalsBetweenDates = timeSheetService.getWeeksBetweenDates(state.startDate, state.endDate)
-        } else if (state.placementType === 2) {
-            intervalsBetweenDates = timeSheetService.getMonthsBetweenDates(state.startDate, state.endDate)
+    getIntervals(placementType) {
+        if (placementType === 1) {
+            return timeSheetService.getWeeksBetweenDates(state.startDate, state.endDate)
+        } else if (placementType === 2) {
+            return timeSheetService.getMonthsBetweenDates(state.startDate, state.endDate)
         } else {
             console.error(`Error: unknown Placement Type: ${state.placementType}`)
         }
-        intervalsBetweenDates.forEach(interval => {
-            const timesheet = {
+    }
+    createTimesheets(intervals) {
+        const timesheets = intervals.map(interval => {
+            return {
                 'intervalStart': interval.startDate,
                 'intervalEnd': interval.endDate,
                 'days': timeSheetService.getDaysBetweenDates(interval.startDate, interval.endDate)
             }
-            timesheets.push(timesheet)
         })
+        return timesheets
+    }
+    componentWillMount() {
+        state = store.getState()
+        if (!state.candidateName || !state.clientName || !state.jobTitle) this.props.history.push('/')
+        const intervalsBetweenDates = this.getIntervals(state.placementType)
+        const timesheets = this.createTimesheets(intervalsBetweenDates)
         store.dispatch(addTimesheets(timesheets))
         this.forceUpdate()
     }
