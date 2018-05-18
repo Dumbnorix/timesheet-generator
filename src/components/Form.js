@@ -62,29 +62,14 @@ export default class Form extends React.Component {
         })
     }
     onDateChange = (value, field) => {
-        const state = store.getState()
-        const startDate = state.startDate
-        const endDate = state.endDate
         switch(field) {
             case START_DATE:
-                if (!formValidator.isEndDateAfterStartDate(value, endDate)) {
-                    store.dispatch(changeStartDate(value))
-                    this.forceUpdate()
-                }
-                else {
-                    window.alert('Start date must be before end date')
-                    this.forceUpdate()
-                }
+                store.dispatch(changeStartDate(value))
+                this.forceUpdate()
                 break
             case END_DATE:
-                if (!formValidator.isEndDateAfterStartDate(startDate, value)) {
-                    store.dispatch(changeEndDate(value))
-                    this.forceUpdate()
-                }
-                else {
-                    window.alert('End date must be after start date')
-                    this.forceUpdate()
-                }
+                store.dispatch(changeEndDate(value))
+                this.forceUpdate()
                 break
             default:
                 console.log(`Error: unknown date field = ${field}`)
