@@ -26,35 +26,36 @@ export default class TimesheetService {
         const end = moment(endDate)
         const weeks = []
         let week = {}
-        week['startDate'] = start.toISOString()
+        week.startDate = start.local().toDate()
         if (start.isoWeekday() === 7) {
-            week['endDate'] = start.toISOString()
+            week.endDate = start.local().toDate()
             weeks.push(week)
             week = {}
         }
-        const current = moment(startDate).add(1, 'days')
-        while(current<=end) {
-            if (current.unix() === end.unix()) {
-                week['endDate'] = current.toISOString()
+        const current = moment(start).add(1, 'days')
+        while(current.unix()<=end.unix()) {
+            if (current.endOf('day').unix() === end.endOf('day').unix()) {
+                if (!week.startDate) week.startDate = current.local().toDate()
+                week.endDate = current.local().toDate()
                 weeks.push(week)
                 break;
             }
             else if (current.isoWeekday() === 1) {
-                if (week['startDate']) {
-                    week['endDate'] = current
+                if (week.startDate) {
+                    week.endDate = current
                     current.add(1, 'days')
                     weeks.push(week)
                     week = {}
-                    week['startDate'] = current.toISOString()
+                    week.startDate = current.local().toDate()
                 } else {
-                    week['startDate'] = current.toISOString()
+                    week.startDate = current.local().toDate()
                     current.add(1, 'days')
                 }
 
                 continue
             }
             else if (current.isoWeekday() === 7) {
-                week['endDate'] = current.toISOString()
+                week.endDate = current.local().toDate()
                 weeks.push(week)
                 week = {}
                 current.add(1, 'days')
@@ -98,30 +99,6 @@ export default class TimesheetService {
             }
         }
         return months
-    }
-
-    async getWeeks(startDate, endDate) {
-        const weeks = this.getWeeksBetweenDates(startDate, endDate)
-        return weeks
-    }
-
-    async getMonths(startDate, endDate) {
-        const months = this.getMonthsBetweenDates(startDate, endDate)
-        return months
-
-    }
-
-    async parseDataForTimesheet(data) {
-        console.log(data.placementType)
-        const rows = data.placementType === 1 ?
-                await this.getWeeks(data.startDate, data.endDate) :
-                await this.getMonths(data.startDate, data.endDate)
-        console.log(rows)
-        const array = []
-        rows.forEach(row => {
-            array.push(row)
-        })
-        return array
     }
 
 }

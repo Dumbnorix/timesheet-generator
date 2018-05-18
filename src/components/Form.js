@@ -26,6 +26,8 @@ import {
     PLACEMENT_VALUES
 } from '../constants/field-names'
 
+import moment from 'moment'
+
 const formValidator = new FormValidator()
 
 const style = {
@@ -64,11 +66,11 @@ export default class Form extends React.Component {
     onDateChange = (value, field) => {
         switch(field) {
             case START_DATE:
-                store.dispatch(changeStartDate(value))
+                store.dispatch(changeStartDate(moment(value).local().toDate()))
                 this.forceUpdate()
                 break
             case END_DATE:
-                store.dispatch(changeEndDate(value))
+                store.dispatch(changeEndDate(moment(value).local().toDate()))
                 this.forceUpdate()
                 break
             default:

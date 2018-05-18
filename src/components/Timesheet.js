@@ -25,7 +25,6 @@ export default class Timesheet extends React.Component {
         let intervalsBetweenDates
         if (state.placementType === 1) {
             intervalsBetweenDates = timeSheetService.getWeeksBetweenDates(state.startDate, state.endDate)
-            console.log(intervalsBetweenDates)
         } else if (state.placementType === 2) {
             intervalsBetweenDates = timeSheetService.getMonthsBetweenDates(state.startDate, state.endDate)
         } else {

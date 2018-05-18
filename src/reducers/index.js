@@ -9,8 +9,8 @@ import {
 } from '../constants/action-types'
 import moment from 'moment'
 
-const defaultStartDate = moment()
-const defaultEndDate = moment(defaultStartDate).add(1, 'months')
+const defaultStartDate = moment().local().toDate()
+const defaultEndDate = moment().add(1, 'months').local().toDate()
 const defaultPlacementType = 1
 
 const initialState = {
