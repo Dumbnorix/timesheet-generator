@@ -54,8 +54,8 @@ export default class Form extends React.Component {
     onSubmit = () => {
         const state = store.getState()
         this.setState({
-            candidateNameError: formValidator.validateName(state.candidateName),
-            clientNameError: formValidator.validateName(state.clientName),
+            candidateNameError: formValidator.validateCandidateName(state.candidateName),
+            clientNameError: formValidator.validateClientName(state.clientName),
             jobTitleError: formValidator.validateTitle(state.jobTitle)
         }, () => {
             if (!this.state.candidateNameError && !this.state.clientNameError && !this.state.jobTitleError) {

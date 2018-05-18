@@ -1,24 +1,24 @@
-import moment from 'moment'
+import {
+    CANDIDATE_NAME_ERROR,
+    CLIENT_NAME_ERROR,
+    JOB_TITLE_ERROR
+} from '../constants/errors'
 
 export default class FormValidator {
 
-    validateName(name) {
-        if (!name) return 'Name is required.'
-        return null
+    validateCandidateName(name) {
+        if (!name) return CANDIDATE_NAME_ERROR
+        else return null
+    }
+
+    validateClientName(name) {
+        if (!name) return CLIENT_NAME_ERROR
+        else return null
     }
 
     validateTitle(title) {
-        if (!title) return 'Job Title is required.'
-        return null
-    }
-
-    isEndDateAfterStartDate(startDate, endDate) {
-        const startDateUnix = moment(startDate).unix()
-        const endDateUnix = moment(endDate).unix()
-        console.log(startDateUnix)
-        console.log(endDateUnix)
-        if (startDate > endDate) return true
-        return null
+        if (!title) return JOB_TITLE_ERROR
+        else return null
     }
 
 }
