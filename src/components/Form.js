@@ -11,6 +11,10 @@ import Divider from 'material-ui/Divider'
 import Paper from 'material-ui/Paper'
 
 import store from '../store/index'
+import {
+    changeEndDate,
+    changeStartDate
+} from '../actions/index'
 
 import {
     CANDIDATE_NAME,
@@ -35,11 +39,15 @@ const style = {
 }
 
 export default class Form extends React.Component {
-    state = {
-        validated: false,
-        candidateNameError: null,
-        clientNameError: null,
-        jobTitleError: null
+    constructor(props) {
+        super(props)
+        this.state = {
+            validated: false,
+            candidateNameError: null,
+            clientNameError: null,
+            jobTitleError: null
+        }
+        this.onDateChange = this.onDateChange.bind(this)
     }
     onSubmit = () => {
         const state = store.getState()
@@ -53,24 +61,45 @@ export default class Form extends React.Component {
             }
         })
     }
-    onDateChange = () => {
+    onDateChange = (value, field) => {
         const state = store.getState()
         const startDate = state.startDate
         const endDate = state.endDate
-        console.log(typeof startDate)
-        if (formValidator.isEndDateAfterStartDate(startDate, endDate)) {
-            // TODO: finish this
+        switch(field) {
+            case START_DATE:
+                if (!formValidator.isEndDateAfterStartDate(value, endDate)) {
+                    store.dispatch(changeStartDate(value))
+                    this.forceUpdate()
+                }
+                else {
+                    window.alert('Start date must be before end date')
+                    this.forceUpdate()
+                }
+                break
+            case END_DATE:
+                if (!formValidator.isEndDateAfterStartDate(startDate, value)) {
+                    store.dispatch(changeEndDate(value))
+                    this.forceUpdate()
+                }
+                else {
+                    window.alert('End date must be after start date')
+                    this.forceUpdate()
+                }
+                break
+            default:
+                console.log(`Error: unknown date field = ${field}`)
         }
     }
     render() {
+        const state = store.getState()
         return (
             <div style={{padding: '50px', margin: '0 auto'}}>
                 <Paper style={{width: '600px'}} zDepth={2}>
                     <TextInput value={CANDIDATE_NAME} error={this.state.candidateNameError}/><Divider/>
                     <TextInput value={CLIENT_NAME} error={this.state.clientNameError}/><Divider/>
                     <TextInput value={JOB_TITLE} error={this.state.jobTitleError}/><Divider/>
-                    <DateInput value={START_DATE} onChange={this.onDateChange.bind(this)}/><Divider/>
-                    <DateInput value={END_DATE} /><Divider/>
+                    <DateInput hint={START_DATE} value={state.startDate} onChange={this.onDateChange} /><Divider/>
+                    <DateInput hint={END_DATE} value={state.endDate} onChange={this.onDateChange} /><Divider/>
                     <DropDownInput label={PLACEMENT_TYPE} items={PLACEMENT_VALUES} />
                 </Paper>
                 <RaisedButton label="Generate Timesheets" style={style.button} onClick={this.onSubmit} primary={true}/>

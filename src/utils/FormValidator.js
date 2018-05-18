@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 export default class FormValidator {
 
     validateName(name) {
@@ -11,7 +13,11 @@ export default class FormValidator {
     }
 
     isEndDateAfterStartDate(startDate, endDate) {
-        if (startDate > endDate) return 'End date needs to be after start date.'
+        const startDateUnix = moment(startDate).unix()
+        const endDateUnix = moment(endDate).unix()
+        console.log(startDateUnix)
+        console.log(endDateUnix)
+        if (startDate > endDate) return true
         return null
     }
 

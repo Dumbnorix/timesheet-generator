@@ -1,39 +1,32 @@
-import React from 'react';
-import DatePicker from 'material-ui/DatePicker';
-import store from '../store/index'
-import {changeEndDate, changeStartDate} from "../actions/index"
-import moment from 'moment'
+import React from 'react'
 
-const START_DATE = 'Start Date'
-const END_DATE = 'End Date'
+import DatePicker from 'material-ui/DatePicker'
+
+import store from '../store/index'
+import {
+    START_DATE,
+    END_DATE
+} from '../constants/field-names'
+
+import moment from 'moment'
 
 export default class DateInput extends React.Component {
     render() {
         const state = store.getState()
-        const FIELD = this.props.value
-        const defaultStartDate = moment(state.startDate).toDate()
-        const defaultEndDate = moment(state.endDate).toDate()
+        const field = this.props.hint
+        const value = moment(this.props.value).toDate()
         const minEndDate = moment(state.startDate).add(1, 'days')
-        const defaultDate = FIELD === START_DATE ? defaultStartDate : defaultEndDate
-        const minDate = FIELD === END_DATE ? minEndDate.toDate() : null
+        const maxStartDate = moment(state.endDate).subtract(1, 'days')
+        const minDate = field === END_DATE ? minEndDate.toDate() : null
+        const maxDate = field === START_DATE ? maxStartDate.toDate() : null
         return <DatePicker
             style={{paddingLeft: '30px', paddingTop: '10px', paddingBottom: '10px', width: '100%'}}
-            hintText={this.props.value}
-            defaultDate={defaultDate}
+            hintText={field}
             minDate={minDate}
+            maxDate={maxDate}
             underlineShow={false}
-            onChange={(e, value) => {
-                switch(FIELD) {
-                    case START_DATE:
-                        store.dispatch(changeStartDate(value))
-                        break
-                    case END_DATE:
-                        store.dispatch(changeEndDate(value))
-                        break
-                    default:
-                        console.log(`Error: unknown date field = ${FIELD}`)
-                }
-            }}
+            value={value}
+            onChange={(e, value) => this.props.onChange(value, field)}
         />
     }
 }

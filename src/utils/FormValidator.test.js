@@ -31,6 +31,6 @@ describe('FormValidator.js', () => {
             endDate = new Date();
         startDate.setHours(endDate.getHours()+2);
         const error = formValidator.isEndDateAfterStartDate(startDate, endDate);
-        expect(error).toEqual('End date needs to be after start date.')
+        expect(error).toBeTruthy()
     })
 })
