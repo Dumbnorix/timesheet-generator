@@ -2,9 +2,7 @@ import React from 'react'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import store from '../store/index'
-import {changePlacementType} from "../actions/index"
-
-let state;
+import {changePlacementType} from '../actions/index'
 
 export default class DropDownInput extends React.Component {
     handleChange = (event, index, value) => {
@@ -13,7 +11,7 @@ export default class DropDownInput extends React.Component {
     }
     getItems = () => this.props.items.map((item, index) => <MenuItem key={index} value={index+1} primaryText={item} />)
     render() {
-        state = store.getState()
+        const state = store.getState()
         return (
             <div>
                 <SelectField
