@@ -62,7 +62,14 @@ describe('TimesheetService.js', () => {
             const startDate = moment('2018-05-20T00:00:00')
             const endDate = moment('2019-05-20T00:00:00')
             const weeks = timesheetService.getWeeksBetweenDates(startDate, endDate)
-            expect(weeks.length).toEqual(54)
+            expect(weeks.length).toEqual(54
+            )
+        })
+        it('should accept very small contracts', () => {
+            const startDate = moment('2018-06-16T10:00:00')
+            const endDate = moment('2018-06-17T10:00:00')
+            const weeks = timesheetService.getWeeksBetweenDates(startDate, endDate)
+            expect(weeks.length).toEqual(1)
         })
     })
 
