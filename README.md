@@ -54,7 +54,9 @@ aws s3 cp build s3://your-bucket-name/ --recursive --region eu-central-1
 ## Built With
 
 * [create-react-app](https://github.com/facebook/create-react-app) - the boilerplate code
-* [material-ui](https://material-ui.com/) - react components built using material design 
+* [material-ui](https://material-ui.com/) - react components built using material design
+* [enzyme](http://airbnb.io/enzyme/) - javascript testing utility
+* [jest](https://facebook.github.io/jest/) - javascript testing solution
 
 ## Authors
 
