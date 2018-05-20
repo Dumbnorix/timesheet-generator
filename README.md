@@ -1,4 +1,4 @@
-# Sonovate Timesheet Generator
+# Timesheet Generator
 
 Timesheet generator exercise created by Alexander Bush
 
